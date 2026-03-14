@@ -1,0 +1,32 @@
+name: Kitchen App CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Install dependencies
+      run: |
+        cd api
+        npm ci
+
+    - name: Run tests
+      run: |
+        cd api
+        npm test
+
+    - name: Build Docker Image
+      run: docker build -t kitchen-api ./api --target production
