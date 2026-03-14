@@ -26,6 +26,8 @@ spec:
           volumeMounts:
             - name: dashboards
               mountPath: /var/lib/grafana/dashboards
+            - name: dashboards
+              mountPath: /etc/grafana/provisioning/dashboards
       volumes:
         - name: dashboards
           configMap:
